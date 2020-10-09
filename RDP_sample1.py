@@ -216,20 +216,3 @@ resizeColumns(ws5)
 workbook.save(OUTPUT_PORTFOLIO)
 
 print('Finished!')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

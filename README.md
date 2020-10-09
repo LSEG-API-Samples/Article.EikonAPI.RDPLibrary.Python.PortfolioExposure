@@ -31,7 +31,7 @@ Eikon sample starts by loading the MSCI reference portfolio already built into E
 
 It is important to note that Eikon data license does not allow a user to share the data with anyone else. Here is the key code snippet for getting all these data points from Eikon:
 
-```
+```python
 portfolio = 'Portfolio(SAMPLE_GL_DEV)'
 df, err = ek.get_data(portfolio, ['TR.PortfolioConstituentName','TR.PortfolioName','TR.PortfolioWeight','TR.TRESGScore', 'TR.TRBCEconomicSector','TR.ExchangeCountry','TR.ExchangeRegion'])
 ```
@@ -43,7 +43,7 @@ Moreover RDP is a server side API, which is more suited for building the enterpr
 
 In the RDP sample, we read the portfolio from one or more excel files. It is expected that excel spreadsheet will contain columns like Instrument (RIC identifier) and fractional number representing its weight in the portfolio. The code snippet to get the ESG and geographic data from RDP, after creating an RDP session is:
 
-```
+```python
 endpoint = rdp.Endpoint(
   session = rdp.get_default_session(),
   url = "data/datagrid/beta1/")
@@ -62,7 +62,6 @@ response = endpoint.send_request(
     "universe": instrs
   }
 )
-
 ```
 A user's RDP account should have relevant permissions to invoke *datagrid* API calls.
 
@@ -70,7 +69,7 @@ A user's RDP account should have relevant permissions to invoke *datagrid* API c
 
 Once the data is retrieved in the step above, the result is available in the Pandas dataframe object with point data for all the instruments in the portfolio. The cells which do not have data are filled with *Null*, allowing us to get holdings with no ESG coverage. We show what portfolio percentage is made up of these holdings and then remove them from further analysis.
 
-```
+```python
 df_esg_sum = df[df['ESG Score'].notna()].copy()
 df_esg_sum = df_esg_sum['Portfolio Weight'].sum()
 print('Number of holdings with ESG coverage: {:.2%}'.format(df_esg_sum))
@@ -78,7 +77,7 @@ print('Number of holdings with ESG coverage: {:.2%}'.format(df_esg_sum))
 
 Normalize the portfolio for ESG covered instruments and get top/bottom 5 holdings.
 
-```
+```python
 df_esg_top = df_esg_port.nlargest(5,'ESG Score')
 df_esg_top = df_esg_top[['Instrument','Issuer Name','Portfolio Weight','ESG Score','TRBC Economic Sector']]
 df_esg_bottom = df_esg_port.nsmallest(5,'ESG Score')
@@ -86,7 +85,7 @@ df_esg_bottom = df_esg_bottom[['Instrument','Issuer Name','Portfolio Weight','ES
 ```
 
 Sort the items by ESG region and country.
-```
+```python
 df_esg_region = df_esg_port.groupby(['Exchange Region']).apply(wavg, 'ESG Score','ESG Portfolio Weight')
 df_esg_region = df_esg_region.to_frame('ESG Score').reset_index()
 df_esg_region['ESG Score'] = df_esg_region['ESG Score'].apply(lambda x: round(x, 3))
@@ -149,6 +148,6 @@ The sample reads the *InputPortfolio.xlsx* and creates an *output.xlsx* with ana
 
 ### Code:
 Complete code for both Codebook as well as standalone RDP sample is available at:   
-[Jupyter notebook for Codebook]()   
-[Python sample for RDP Libraries]()   
+[Jupyter notebook for Codebook](https://github.com/Refinitiv-API-Samples/Article.EikonAPI.RDPLibrary.Python.PortfolioExposure/blob/master/Codebook_sample1.ipynb)   
+[Python sample for RDP Libraries](https://github.com/Refinitiv-API-Samples/Article.EikonAPI.RDPLibrary.Python.PortfolioExposure/blob/master/RDP_sample1.py)   
 
