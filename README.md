@@ -21,7 +21,7 @@ The metrics which are requested for portfolio constituents are:
 2. Company's economic sector - *TR.TRBCEconomicSector*
 3. The country and geographic region where it is located - *TR.ExchangeCountry* and *TR.ExchangeRegion*
 
-These four fields are important for portfolio managers with a global focus, who would like to know which regions and countries they are placing their bets in, and how much exposure they have. After reviewing the current regional asset allocation, a portfolio manager may want to review their country or region allocation, if they are overweight in a particular one. There is also an increasing demand from investors, to invest in the ESG conscious portfolios and integrate that information in the performance report they receive. The pie chart shows the ESG score by region and it further breaks it down by country.
+These four fields are important for portfolio managers with a global focus, who would like to know which regions and countries they are placing their bets in, and how much exposure they have. After reviewing the current regional asset allocation, a portfolio managers may want to review their country or region allocation and identify their top and bottom exposures. There is also an increasing demand from investors, to invest in the ESG conscious portfolios and integrate that information in the performance report they receive. The pie chart shows the ESG score by region and it further breaks it down by country to provide a visualization of the output.
 
 
 **Eikon:**
